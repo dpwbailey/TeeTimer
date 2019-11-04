@@ -1,0 +1,20 @@
+<component name="libraryTable">
+  <library name="org.easybatch:easybatch-apache-commons-csv:5.0.0" type="repository">
+    <properties maven-id="org.easybatch:easybatch-apache-commons-csv:5.0.0" />
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/easybatch-apache-commons-csv-5.0.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/easybatch-core-5.0.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/commons-csv-1.4.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$PROJECT_DIR$/lib/easybatch-apache-commons-csv-5.0.0-javadoc.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/easybatch-core-5.0.0-javadoc.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/commons-csv-1.4-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/lib/easybatch-apache-commons-csv-5.0.0-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/easybatch-core-5.0.0-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/commons-csv-1.4-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
