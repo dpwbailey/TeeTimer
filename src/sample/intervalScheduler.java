@@ -1,8 +1,10 @@
 package sample;
+
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.Random;
 
-    // Java program for Weighted Job Scheduling in O(nLogn)
+// Java program for Weighted Job Scheduling in O(nLogn)
 // time
 
 
@@ -59,11 +61,23 @@ public class intervalScheduler {
 
             return -1;
         }
+        public static int generateSampleData(){
+            Job[] sampleData = new Job[324];
+            Random random = new Random();
+            for (int i = 0; i < sampleData.length; i++){
+
+                    sampleData[i] = new Job(random.nextInt(9),random.nextInt(9)+1, 1);
+                }
+
+            return schedule(sampleData);
+            }
+
 
         // The main function that returns the maximum possible
         // profit from given array of jobs
-        static public int schedule(Job jobs[])
-        {
+      static public int schedule(Job jobs[])
+        //static public int[] schedule(Job jobs[])
+{
             // Sort jobs according to finish time
             Arrays.sort(jobs, new JobComparator());
 
@@ -86,7 +100,7 @@ public class intervalScheduler {
                 // Store maximum of including and excluding
                 table[i] = Math.max(inclProf, table[i-1]);
             }
-
+                System.out.println("Table: " + Arrays.toString(table));
             return table[n-1];
         }
 
@@ -96,6 +110,8 @@ public class intervalScheduler {
             Job jobs[] = {new Job(1, 2, 50), new Job(3, 5, 20),
                     new Job(6, 19, 100), new Job(2, 100, 200)};
 
+
+         //   System.out.println("Sample:" + generateSampleData()); //generates random data for 18^2 values (1 group or single golfer on each hole, 18 holes per group/player
             System.out.println("Optimal profit is " + schedule(jobs));
         }
     }

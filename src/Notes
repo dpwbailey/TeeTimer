@@ -1,4 +1,8 @@
 TODO:
 
 https://github.com/kjkjava/garmin-connect-export
---> delete all entries after they are exported from garmin connect
+--> delete all entries after they are exported from garmin
+
+NOTES:
+
+assume a standard hole completion time of duration/18 if specific hole times are not given
