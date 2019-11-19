@@ -1,6 +1,7 @@
 package sample;
 
 
+import java.io.File;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
@@ -18,6 +19,7 @@ public class Appointment extends intervalScheduler {
   private String name = "Default Name";
   private String preferredTime = "Default Preferred Time";
   private String averageRoundDuration = "Default Round Duration";
+  private int numPlayers = 1;//Default Number of Players in Group
   //need to convert duration string from 1:00:00 format to a numeric value, maybe use milliseconds?
 
 
@@ -26,16 +28,22 @@ public class Appointment extends intervalScheduler {
   }
 
   public Appointment(String name, String preferredTime,
-      String averageRoundDuration) throws IOException {
+      String averageRoundDuration, int numPlayers) throws IOException {
 
     this.name = name;
     this.preferredTime = preferredTime;
     this.averageRoundDuration = averageRoundDuration;
+    this.numPlayers = numPlayers;
+
 
     Reader reader = Files.newBufferedReader(Paths.get(csvPath));
     CSVParser csvParser;
 
-    {
+
+    File file = new File(name +".csv");
+    if(file.exists()){
+      System.out.println("File exists");
+
       try {
         csvParser = new CSVParser(reader, CSVFormat.EXCEL.withFirstRecordAsHeader()
             .withIgnoreHeaderCase().withTrim());
@@ -44,12 +52,22 @@ public class Appointment extends intervalScheduler {
           // Accessing values by the names assigned to each column
 //          name = csvRecord.get("Name");
 //          preferredTime = csvRecord.get("Preferred Time");
-          averageRoundDuration = csvRecord.get("Time");
+          this.averageRoundDuration = csvRecord.get("Time");
         }
 
       } catch (IOException e) {
         e.printStackTrace();
       }
+
+
+    }else{
+      System.out.println("File not found");
+    }
+
+
+
+    {
+
     }
   }
 
@@ -93,15 +111,15 @@ public class Appointment extends intervalScheduler {
   @Override
   public String toString() {
     return "Appointment: " +
-        //  "name='" + name + '\'' +
-        " preferredTime='" + getPreferredTime() + '\'' +
+        " name='" + name + '\'' +
+        ", preferredTime='" + preferredTime + '\'' +
         ", averageRoundDuration='" + averageRoundDuration + '\'' +
-        '}';
+        ", numPlayers=" + numPlayers;
   }
 
   public static void main(String[] args) {
     try {
-      Appointment appointment = new Appointment("Joe", "9:00", "3:00:00");
+      Appointment appointment = new Appointment("Joe Smith", "9:00:00", "3:00:00",4);
       System.out.println(appointment.toString());
     } catch (Exception e) {
       e.printStackTrace();
