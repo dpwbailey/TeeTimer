@@ -3,9 +3,13 @@ package sample;
 import static jdk.nashorn.internal.objects.Global.print;
 
 import com.sun.org.apache.xerces.internal.dom.PSVIAttrNSImpl;
+import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Path;
 import java.util.List;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
@@ -20,8 +24,10 @@ import java.nio.file.Paths;
 
 public class csvFunctions {
 
-  private static File directoryPath = new File("C:\\Users\\dpwba\\IdeaProjects\\TeeTimer\\src");
-  private static String csvPath = "C:\\Users\\dpwba\\IdeaProjects\\TeeTimer\\src\\Activities.csv";
+  private static File directoryPath = new File("C:\\Users\\Dan\\Documents\\GitHub\\TeeTimer\\src");
+  private static File activitiesCSV = new File(
+      "C:\\Users\\Dan\\Documents\\GitHub\\TeeTimer\\src\\Activities.csv");
+  private static String csvPath = "C:\\Users\\Dan\\Documents\\GitHub\\TeeTimer\\src\\Activities.csv";
 
 
   public static String[] getCsvPaths(int i) {
@@ -75,9 +81,11 @@ public class csvFunctions {
     }
   }
 
-  public static void createCustomerFile(String customerName, String preferredTime, String averageDuration ) {
+  public static void createCustomerFile(String customerName, String preferredTime,
+      String averageDuration) {
 
   }
+
   public static String[] toArray(CSVRecord rec) {
     String[] arr = new String[rec.size()];
     int i = 0;
@@ -86,25 +94,48 @@ public class csvFunctions {
     }
     return arr;
   }
-  public static void addNamesToGarminCSV(File f) throws IOException {
-    Reader in = new FileReader("path/to/file.csv");
-    Iterable<CSVRecord> records = CSVFormat.EXCEL.parse(in);
-    for (CSVRecord record : records) {
-      String lastName = record.get("Last Name");
-      String firstName = record.get("First Name");
+
+
+  /**
+   * creates a csv file for a client given the path to the csv file containing their data and a
+   * string containing their full name should maybe edit to accept multiple clients at once
+   *
+   * @param fullName the client's name, which becomes the name of the CSV file
+   * @return nothing, it just creates the CSV file itself
+   */
+  public static void addNamesToGarminCSV(Path dataSource, String fullName) throws IOException {
+    Path newCSVpath = Paths.get(fullName + ".csv");
+    CSVFormat format = CSVFormat.EXCEL.withHeader();
+    try (
+        Reader reader = Files.newBufferedReader(dataSource);
+        CSVParser csvParser = new CSVParser(reader, CSVFormat.DEFAULT);
+        BufferedWriter writer = Files.newBufferedWriter(newCSVpath, StandardCharsets.UTF_8);
+        CSVPrinter printer = new CSVPrinter(writer, format);
+    ) {
+      printer.printRecords(csvParser.getRecords());
     }
   }
+
+  /*
+   * TODO: below function
+   *
+   *
+   *
+   *
+   */
   public static void updateCsvFile(File f) throws Exception {
     CSVParser parser = new CSVParser(new FileReader(f), CSVFormat.DEFAULT);
+
     List<CSVRecord> list = parser.getRecords();
     String edited = f.getAbsolutePath();
 
     f.delete();
-    CSVPrinter printer = new CSVPrinter(new FileWriter(edited), CSVFormat.DEFAULT.withRecordSeparator(","));
+    CSVPrinter printer = new CSVPrinter(new FileWriter(edited),
+        CSVFormat.DEFAULT.withRecordSeparator(","));
     for (CSVRecord record : list) {
       String[] s = toArray(record);
 
-      if(s[0].equalsIgnoreCase("Actual Text")){
+      if (s[0].equalsIgnoreCase("Actual Text")) {
         s[0] = "Replacement Text";
       }
       print(printer, s);
@@ -114,7 +145,11 @@ public class csvFunctions {
 
     System.out.println("CSV file was updated successfully !!!");
   }
+
   public static void main(String[] args) throws IOException {
+//test making client csv file
+    addNamesToGarminCSV(Paths.get(csvPath), "Joe Smith");
+
     int count = 0;
     //String fieldName = getName(csvPath, "duration");
     //System.out.println(fieldName);
