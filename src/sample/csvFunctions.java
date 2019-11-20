@@ -69,8 +69,8 @@ public class csvFunctions {
 
     public static void main(String[] args) throws IOException {
         int count = 0;
-        //String fieldName = getName(csvPath, "duration");
-        //System.out.println(fieldName);
+        String fieldName = getName(csvPath, "duration");
+        System.out.println(fieldName);
         try (
                 Reader reader = Files.newBufferedReader(Paths.get(csvPath));
                 CSVParser csvParser = new CSVParser(reader, CSVFormat.DEFAULT);
