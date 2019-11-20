@@ -16,7 +16,7 @@ import java.nio.file.Paths;
 
 public class Appointment extends intervalScheduler {
 
-  private static String csvPath = "C:\\Users\\Dan\\Documents\\GitHub\\TeeTimer\\src\\Activities.csv";
+  private static String csvPath = "C:\\Users\\alann\\OneDrive\\Entrepreneurship\\TeeTimerPC\\src\\Activities.csv";
   //  Appointment appointment = new Appointment();
   private String name = "Default Name";
   private String preferredTime = "Default Preferred Time";
@@ -141,6 +141,7 @@ public class Appointment extends intervalScheduler {
     try {
       Appointment appointment = new Appointment("Joe Smith", "9:00:00", "3:00:00", 4);
       System.out.println(appointment.toString());
+      System.out.println(appointmentArrayList.toString());
     } catch (Exception e) {
       e.printStackTrace();
     }
