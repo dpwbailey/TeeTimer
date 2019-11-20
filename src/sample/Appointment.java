@@ -2,6 +2,8 @@ package sample;
 
 
 import java.io.File;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
@@ -22,6 +24,9 @@ public class Appointment extends intervalScheduler {
   private int numPlayers = 1;//Default Number of Players in Group
   //need to convert duration string from 1:00:00 format to a numeric value, maybe use milliseconds?
 
+  public static ArrayList<Appointment> appointmentArrayList = new ArrayList<>();
+
+
 
   public Appointment() {
 //default constructor
@@ -35,13 +40,11 @@ public class Appointment extends intervalScheduler {
     this.averageRoundDuration = averageRoundDuration;
     this.numPlayers = numPlayers;
 
-
     Reader reader = Files.newBufferedReader(Paths.get(csvPath));
     CSVParser csvParser;
 
-
-    File file = new File(name +".csv");
-    if(file.exists()){
+    File file = new File(name + ".csv");
+    if (file.exists()) {
       System.out.println("File exists");
 
       try {
@@ -53,33 +56,50 @@ public class Appointment extends intervalScheduler {
 //          name = csvRecord.get("Name");
 //          preferredTime = csvRecord.get("Preferred Time");
           this.averageRoundDuration = csvRecord.get("Time");
+          appointmentArrayList.add(this);
         }
 
       } catch (IOException e) {
         e.printStackTrace();
       }
 
-
-    }else{
+    } else {
       System.out.println("File not found");
+      appointmentArrayList.add(this);
     }
 
+  }
 
+  public static void setCsvPath(String csvPath) {
+    Appointment.csvPath = csvPath;
+  }
 
-    {
+  public int getNumPlayers() {
+    return numPlayers;
+  }
 
-    }
+  public void setNumPlayers(int numPlayers) {
+    this.numPlayers = numPlayers;
+  }
+
+  public ArrayList<Appointment> getAppointmentArrayList() {
+    return appointmentArrayList;
+  }
+
+  public void addToAppointmentArrayList(ArrayList<Appointment> appointmentArrayList, Appointment appointment) {
+    this.appointmentArrayList = appointmentArrayList;
+    appointmentArrayList.add(appointment);
   }
 
   /*
-    public Appointment getAppointment() {
-      return appointment;
-    }
+      public Appointment getAppointment() {
+        return appointment;
+      }
 
-    public void setAppointment(Appointment appointment) {
-      this.appointment = appointment;
-    }
-  */
+      public void setAppointment(Appointment appointment) {
+        this.appointment = appointment;
+      }
+    */
   public String getName() {
     return name;
   }
@@ -119,7 +139,7 @@ public class Appointment extends intervalScheduler {
 
   public static void main(String[] args) {
     try {
-      Appointment appointment = new Appointment("Joe Smith", "9:00:00", "3:00:00",4);
+      Appointment appointment = new Appointment("Joe Smith", "9:00:00", "3:00:00", 4);
       System.out.println(appointment.toString());
     } catch (Exception e) {
       e.printStackTrace();
