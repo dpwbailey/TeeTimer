@@ -1,34 +1,66 @@
 package sample;
 
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
-import java.util.Date;
-import java.util.Random;
-
 // Java program for Weighted Job Scheduling in O(nLogn)
 // time
 
 
 // Class to represent a job
-class Job extends intervalScheduler {
+class Job {
 
-  int start, finish, profit;
+  int id, start, finish, profit;
 
-  Job(Appointment appointment) {
-    //TODO: below constructor
-    this.start = convertDurationToInteger(appointment.getAverageRoundDuration());
+  public int getId() {
+    return id;
+  }
+
+  public void setId(int id) {
+    this.id = id;
+  }
+
+  public int getStart() {
+    return start;
+  }
+
+  public void setStart(int start) {
+    this.start = start;
+  }
+
+  public int getFinish() {
+    return finish;
+  }
+
+  public void setFinish(int finish) {
+    this.finish = finish;
+  }
+
+  public int getProfit() {
+    return profit;
+  }
+
+  public void setProfit(int profit) {
+    this.profit = profit;
   }
 
   // Constructor
-  Job(int start, int finish, int profit) {
+  Job(int id, int start, int finish, int profit) {
+    this.id = id;
     this.start = start;
     this.finish = finish;
     this.profit = profit;
   }
 }
+
+/*
+  Job(Appointment appointment) {
+    //TODO: below constructor
+    this.start = convertDurationToInteger(appointment.getAverageRoundDuration());
+  }
+
+*/
 
 // Used to sort job according to finish times
 class JobComparator implements Comparator<Job> {
@@ -66,18 +98,18 @@ public class intervalScheduler {
 
     return -1;
   }
-
-  public static int generateSampleData() {
-    Job[] sampleData = new Job[324];
+/*
+  public static Job [][] generateSampleData() {
+    Job[][] sampleData = new Job[324][3];
     Random random = new Random();
     for (int i = 0; i < sampleData.length; i++) {
-
-      sampleData[i] = new Job(random.nextInt(9), random.nextInt(9) + 1, 1);
+      for (int j = 0; j < sampleData[i].length; j++) {
+        sampleData[i][j] = new Job(random.nextInt(), random.nextInt(9), random.nextInt(9) + 1, 1);
+      }
     }
-
-    return schedule(sampleData);
+    return sampleData;
   }
-
+*/
 
   // The main function that returns the maximum possible
   // profit from given array of jobs
@@ -140,10 +172,13 @@ public class intervalScheduler {
 
   // Driver method to test above
   public static void main(String[] args) throws IOException {
-    Job jobs[] = {new Job(1, 2, 50), new Job(3, 5, 20),
-        new Job(6, 19, 100), new Job(2, 100, 200)};
+    Job jobs[] = {new Job(1, 2,3, 50), new Job(3, 5,6, 20),
+        new Job(6, 19,20, 100), new Job(2, 100,105, 200)};
+    /*
     System.out.println("Sample:"
         + generateSampleData()); //generates random data for 18^2 values (1 group or single golfer on each hole, 18 holes per group/player
+
+     */
     System.out.println("Optimal profit is " + schedule(jobs));
 
     Appointment appointment = new Appointment("Joe Smith", "9:00:00", "3:00:00", 4);

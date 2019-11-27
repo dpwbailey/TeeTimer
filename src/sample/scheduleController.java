@@ -1,6 +1,5 @@
 package sample;
 
-import java.util.ArrayList;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -41,8 +40,6 @@ public class scheduleController extends Application
         System.out.println("Initialize worked!");
         setUpObservableList();
         setupProductLineTable();
-
-
     }
 
     private void setUpObservableList() throws IOException {

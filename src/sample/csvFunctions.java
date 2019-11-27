@@ -1,39 +1,33 @@
 package sample;
 
-import static jdk.nashorn.internal.objects.Global.print;
-
-import com.sun.org.apache.xerces.internal.dom.PSVIAttrNSImpl;
-import java.io.BufferedWriter;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.InputStreamReader;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Path;
-import java.util.List;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
-import org.apache.commons.csv.CSVRecord;
 import org.apache.commons.csv.CSVPrinter;
+import org.apache.commons.csv.CSVRecord;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.Reader;
+import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
+
+import static jdk.nashorn.internal.objects.Global.print;
 
 public class csvFunctions {
 
   private static File directoryPath = new File("C:\\Users\\Dan\\Documents\\GitHub\\TeeTimer\\src");
   private static File activitiesCSV = new File(
       "C:\\Users\\Dan\\Documents\\GitHub\\TeeTimer\\src\\Activities.csv");
-  private static String csvPath = "C:\\Users\\Dan\\Documents\\GitHub\\TeeTimer\\src\\Activities.csv";
+  private static String csvPath = "C:\\Users\\dpwba\\IdeaProjects\\TeeTimer\\src\\Activities.csv";
 
 
-  public static String[] getCsvPaths(int i) {
+  public static String[] getCsvPaths(String[] nameList) {
     String[] pathList = new String[64];
-    while (i > 0) {
+    int i = 0;
+    while (i > nameList.length) {
       pathList[i] = directoryPath.getPath();
+      i++;
     }
     return pathList;
   }
@@ -148,7 +142,7 @@ public class csvFunctions {
 
   public static void main(String[] args) throws IOException {
 //test making client csv file
-    addNamesToGarminCSV(Paths.get(csvPath), "Joe Smith");
+    addNamesToGarminCSV(Paths.get(csvPath), "Dan Bailey");
 
     int count = 0;
     //String fieldName = getName(csvPath, "duration");

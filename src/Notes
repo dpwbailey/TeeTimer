@@ -6,3 +6,21 @@ https://github.com/kjkjava/garmin-connect-export
 NOTES:
 
 assume a standard hole completion time of duration/18 if specific hole times are not given
+(depending on par of hole)
+
+minimum interval between groups depending on the par of the first hole (higher for par 3,5 and lower for par 4)
+
+alternative play formats (aggregate, alternating, etc)
+
+if there is no csv file, they are a new player, and thus going to play significantly slower
+
+golfnow
+
+available: starting time, walking/riding, 9/18, front 9 or back 9 faster?, shotgun to track individual holes,
+assume 2 people playing together will be slightly faster than the slower player
+
+things that would be good to determine regarding their pace of play:
+gender, preferred tee time, handicap playability,
+
+
+important: how can we use the customer data to extrapolate additional information regarding their pace of play
