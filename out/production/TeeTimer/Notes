@@ -6,7 +6,7 @@ https://github.com/kjkjava/garmin-connect-export
 NOTES:
 
 assume a standard hole completion time of duration/18 if specific hole times are not given
-
+(depending on par of hole)
 
 minimum interval between groups depending on the par of the first hole (higher for par 3,5 and lower for par 4)
 

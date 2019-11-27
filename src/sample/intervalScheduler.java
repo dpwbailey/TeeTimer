@@ -1,7 +1,6 @@
 package sample;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 // Java program for Weighted Job Scheduling in O(nLogn)
@@ -141,7 +140,7 @@ public class intervalScheduler {
     System.out.println("Table: " + Arrays.toString(table));
     return table[n - 1];
   }
-
+/*
   public int convertDurationToInteger(String timeAsString) {
 
     String[] durationStringArray = timeAsString.split(":");
@@ -169,6 +168,8 @@ public class intervalScheduler {
     }
     return jobArray;
   }
+
+ */
 
   // Driver method to test above
   public static void main(String[] args) throws IOException {

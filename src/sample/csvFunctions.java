@@ -31,7 +31,11 @@ public class csvFunctions {
     }
     return pathList;
   }
-
+  public static void downloadGarminData() throws IOException {
+    //TODO:
+    ProcessBuilder builder = new ProcessBuilder(directoryPath + "getgarmindata1.py", "--arg1", "argumentValue");
+    builder.start();
+  }
   public static String getName(String csvPath, String desiredField) {
     String activityType = "", date = "", favorite = "", title = "", distance = "", calories = "", duration = "", name = "";
     try (
@@ -141,9 +145,10 @@ public class csvFunctions {
   }
 
   public static void main(String[] args) throws IOException {
-//test making client csv file
-    addNamesToGarminCSV(Paths.get(csvPath), "Dan Bailey");
 
+//test making client csv file
+  //  addNamesToGarminCSV(Paths.get(csvPath), "Dan Bailey");
+    downloadGarminData();
     int count = 0;
     //String fieldName = getName(csvPath, "duration");
     //System.out.println(fieldName);
@@ -161,21 +166,19 @@ public class csvFunctions {
                 String calories = csvRecord.get(5);
                */
         String time = csvRecord.get(6);
-
         if (count > 0) {
           System.out.println("Record No - " + csvRecord.getRecordNumber());
           System.out.println("---------------");
           System.out.println("Group Number: " + count);
           System.out.println("Round Duration: " + time);
-
              /*   System.out.println("Email : " + email);
                 System.out.println("Phone : " + phone);
                 System.out.println("Country : " + country);
                 */
-
           System.out.println("---------------\n\n");
         }
         count++;
+
       }
     }
   }

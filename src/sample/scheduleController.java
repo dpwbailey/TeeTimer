@@ -14,23 +14,24 @@ import javafx.stage.Stage;
 
 import java.io.FileInputStream;
 import java.io.IOException;
-public class scheduleController extends Application
-{
+
+public class scheduleController extends Application {
     @FXML
     private TableView<Appointment> scheduleTable;
-    @FXML private TableColumn<Appointment, String> nameColumn;
-    @FXML private TableColumn<Appointment, String> prefTimeColumn;
-    @FXML private TableColumn<Appointment, String> aveRoundColumn;
-    @FXML private TableColumn<Appointment, String> numOfPlayersColumn;
-
-
+    @FXML
+    private TableColumn<Appointment, String> nameColumn;
+    @FXML
+    private TableColumn<Appointment, String> prefTimeColumn;
+    @FXML
+    private TableColumn<Appointment, String> aveRoundColumn;
+    @FXML
+    private TableColumn<Appointment, String> numOfPlayersColumn;
 
 
     private static ObservableList<Appointment> observableAppointments = FXCollections.observableArrayList();
 
 
-    public static void main(String[] args)
-    {
+    public static void main(String[] args) {
         Application.launch(args);
     }
 
@@ -43,7 +44,7 @@ public class scheduleController extends Application
     }
 
     private void setUpObservableList() throws IOException {
-       // Appointment testAppointment = new Appointment();
+        // Appointment testAppointment = new Appointment();
 
         intervalScheduler.main(null);
 
@@ -61,8 +62,7 @@ public class scheduleController extends Application
     }
 
     @Override
-    public void start(Stage stage) throws IOException
-    {
+    public void start(Stage stage) throws IOException {
         // Create the FXMLLoader 
         FXMLLoader loader = new FXMLLoader();
         // Path to the FXML File
