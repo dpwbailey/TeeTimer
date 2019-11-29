@@ -54,7 +54,7 @@ public class Appointment extends intervalScheduler {
 //          name = csvRecord.get("Name");
 //          preferredTime = csvRecord.get("Preferred Time");
                     this.averageRoundDuration = csvRecord.get("Time");
-                    this.name = csvRecord.get("Name");
+                    //this.name = csvRecord.get("Name");
                     appointmentArrayList.add(this);
                 }
 
