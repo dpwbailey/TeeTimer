@@ -1,5 +1,6 @@
 package sample;
 
+import java.util.LinkedList;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVPrinter;
@@ -16,20 +17,30 @@ import static jdk.nashorn.internal.objects.Global.print;
 
 public class csvFunctions {
 
-    private static File directoryPath = new File("C:\\Users\\Dan\\Documents\\GitHub\\TeeTimer\\src");
+    private static File directoryPath = new File("C:\\Users\\alann\\OneDrive\\Entrepreneurship\\TeeTimerTest2");
     private static File activitiesCSV = new File(
             "C:\\Users\\Dan\\Documents\\GitHub\\TeeTimer\\src\\Activities.csv");
     private static String csvPath = "C:\\Users\\dpwba\\IdeaProjects\\TeeTimer\\src\\Activities.csv";
 
+    public static List<String> fileNames = new LinkedList<String>();
 
-    public static String[] getCsvPaths(String[] nameList) {
-        String[] pathList = new String[64];
-        int i = 0;
-        while (i > nameList.length) {
-            pathList[i] = directoryPath.getPath();
-            i++;
+
+
+    public static File getDirectoryPath() {
+        return directoryPath;
+    }
+
+
+    public static void getCsvPaths(File folder) {
+        for (File fileEntry : folder.listFiles()) {
+            if (fileEntry.isDirectory()) {
+                getCsvPaths(fileEntry);
+            } else {
+                if(fileEntry.getName().contains(".csv"))
+                    fileNames.add(fileEntry.getPath());
+            }
         }
-        return pathList;
+        System.out.println("filenames array: " + fileNames);
     }
 
     //pass the argument -d 'Client's Name' into to check if file already exists. if it does, appends to end of clientname.csv

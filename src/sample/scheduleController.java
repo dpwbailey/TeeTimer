@@ -1,6 +1,7 @@
 package sample;
 
 import java.nio.ByteBuffer;
+import java.util.Arrays;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -39,7 +40,7 @@ public class scheduleController extends Application {
     private TableColumn<Appointment, String> numOfPlayersColumn;
 
     @FXML
-    private ListView<?> customerFileListView;
+    private ListView<String> customerFileListView;
 
 
     @FXML
@@ -54,9 +55,27 @@ public class scheduleController extends Application {
     @FXML
     private Button fileToTableViewButton;
 
+    private static ObservableList<String> observableListView = FXCollections.observableList(csvFunctions.fileNames);
+
+    private static ObservableList<Appointment> observableAppointments = FXCollections
+        .observableArrayList();
+
     @FXML
     void sendFileToTableView(MouseEvent event) {
         //get selected file from listview
+        String selectedFile = customerFileListView.getSelectionModel().getSelectedItem();
+
+        String fileName = csvFunctions.getName(selectedFile, "name");
+        String fileDuration = csvFunctions.getName(selectedFile, "duration");
+
+        Appointment newAppointment = new Appointment(fileName, fileDuration);
+
+        Appointment.appointmentArrayList.add(newAppointment);
+        System.out.println("Appointment array list for table view: " + Appointment.appointmentArrayList);
+
+        observableAppointments.add(newAppointment);
+
+
         //send that file to table view arraylist
         //call setUpObservableList to update the tableview with the new file
 
@@ -64,27 +83,42 @@ public class scheduleController extends Application {
 
 
     @FXML
-    void csvSearch(MouseEvent event) {
+    void csvSearch(MouseEvent event) throws IOException {
         //call downloadGarminData(user entered name)
+        String enteredName = csvSearchTextField.getText();
+        csvFunctions.downloadGarminData(enteredName);
         //call getCsvPaths to populate an ArrayList with all the file paths
+        csvFunctions.getCsvPaths(csvFunctions.getDirectoryPath());
+
+
+
         //read the data from the specific file path to get desired fields (call getName -> name and date)
         //populate listview with new arraylist of all the desired values
+
 
     }
 
     @FXML
     void generateSchedule(MouseEvent event) {
 
+        //intervalSchedulerRevised.Job[][] jobs = intervalSchedulerRevised.convertAppointmentArrayListToJobs(Appointment.appointmentArrayList);
+        //intervalSchedulerRevised.calcSchedule(jobs);
+
+
         //use the values in the tableview arraylist to generate a schedule
         //append that schedule to the Text Area
+    }
+
+    private void setUpListView() {
+        customerFileListView.setItems(observableListView);
+
     }
 
 
     // private static final DataFormat format = new DataFormat("/Appointment");
 
 
-    private static ObservableList<Appointment> observableAppointments = FXCollections
-        .observableArrayList();
+
 
 
     public static void main(String[] args) {
@@ -122,12 +156,14 @@ public class scheduleController extends Application {
         System.out.println("Initialize worked!");
         setUpObservableList();
         setupProductLineTable();
+        csvFunctions.getCsvPaths(csvFunctions.getDirectoryPath());
+        setUpListView();
     }
 
-    private void setUpObservableList() throws IOException {
+    private void setUpObservableList() {
         // Appointment testAppointment = new Appointment();
 
-        intervalScheduler.main(null);
+       // intervalScheduler.main(null);
 
         observableAppointments.addAll(Appointment.appointmentArrayList);
 

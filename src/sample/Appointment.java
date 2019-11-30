@@ -14,7 +14,7 @@ import java.util.ArrayList;
 
 public class Appointment extends intervalScheduler {
 
-    private static String csvPath = "C:\\Users\\dpwba\\IdeaProjects\\TeeTimer\\src\\Activities.csv";
+    private static String csvPath = "C:\\Users\\alann\\OneDrive\\Entrepreneurship\\TeeTimerTest2\\src\\Activities.csv";
     //  Appointment appointment = new Appointment();
     private String name = "Default Name";
     private String preferredTime = "Default Preferred Time";
@@ -26,8 +26,11 @@ public class Appointment extends intervalScheduler {
     public static ArrayList<Appointment> appointmentArrayList = new ArrayList<>();
 
 
-    public Appointment() {
-//default constructor
+    public Appointment(String name,
+        String averageRoundDuration) {
+        this.name = name;
+        this.averageRoundDuration = averageRoundDuration;
+        //default constructor
     }
 
     public Appointment(String name, String preferredTime,
