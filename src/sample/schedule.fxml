@@ -51,23 +51,16 @@
   <AnchorPane VBox.vgrow="ALWAYS">
     <TabPane layoutX="4.0" layoutY="4.0" prefHeight="368.0" prefWidth="633.0" tabClosingPolicy="UNAVAILABLE">
       <Tab text="Customer Data">
-        <AnchorPane id="scheduleAnchorPane" minHeight="0.0" minWidth="0.0" prefHeight="515.0"
-          prefWidth="633.0">
-          <ListView layoutX="14.0" layoutY="25.0" prefHeight="300.0" prefWidth="250.0"/>
-          <Label layoutX="14.0" layoutY="6.0" prefHeight="17.0" prefWidth="199.0"
-            text="Current Files:"/>
-          <AnchorPane layoutX="333.0" layoutY="25.0" prefHeight="111.0" prefWidth="190.0">
-            <TextField layoutX="123.0" layoutY="63.0"/>
-            <TextField layoutX="123.0" layoutY="31.0"/>
-            <Label layoutX="168.0" layoutY="6.0" text="Create File:"/>
-            <Label layoutX="78.0" layoutY="35.0" text="Name:"/>
-            <Label layoutX="37.0" layoutY="67.0" text="Preferred Time:"/>
+        <AnchorPane id="scheduleAnchorPane" minHeight="0.0" minWidth="0.0" prefHeight="515.0" prefWidth="633.0">
+          <ListView fx:id="customerFileListView" layoutX="14.0" layoutY="25.0" prefHeight="300.0" prefWidth="250.0" />
+          <Label layoutX="14.0" layoutY="6.0" prefHeight="17.0" prefWidth="199.0" text="Current Files:" />
+          <AnchorPane layoutX="357.0" layoutY="25.0" prefHeight="111.0" prefWidth="190.0">
+            <TextField fx:id="csvSearchTextField" layoutX="113.0" layoutY="52.0" />
+            <Label layoutX="90.0" layoutY="14.0" text="Search For CSV:" />
+            <Label layoutX="65.0" layoutY="56.0" text="Name:" />
+                  <Button fx:id="csvSearchButton" layoutX="162.0" layoutY="85.0" mnemonicParsing="false" onMouseClicked="#csvSearch" text="Search" />
           </AnchorPane>
-          <AnchorPane layoutX="347.0" layoutY="147.0" prefHeight="111.0" prefWidth="190.0">
-            <TextField layoutX="113.0" layoutY="52.0"/>
-            <Label layoutX="90.0" layoutY="14.0" text="Search For CSV:"/>
-            <Label layoutX="65.0" layoutY="56.0" text="Name:"/>
-          </AnchorPane>
+               <Button fx:id="fileToTableViewButton" layoutX="357.0" layoutY="200.0" mnemonicParsing="false" onMouseClicked="#sendFileToTableView" text="Send to Schedule Generator" />
         </AnchorPane>
       </Tab>
       <Tab text="Schedule Generator">
@@ -80,12 +73,12 @@
               <TableColumn fx:id="numOfPlayersColumn" prefWidth="137.0" text="Number of Players" />
             </columns>
           </TableView>
-               <Button layoutX="487.0" layoutY="14.0" mnemonicParsing="false" text="Generate Schedule" />
+               <Button fx:id="generateScheduleButton" layoutX="487.0" layoutY="14.0" mnemonicParsing="false" onMouseClicked="#generateSchedule" text="Generate Schedule" />
         </AnchorPane>
       </Tab>
       <Tab text="Schedule View">
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-          <TextArea layoutX="67.0" layoutY="45.0" prefHeight="250.0" prefWidth="500.0"/>
+          <TextArea layoutX="67.0" layoutY="45.0" prefHeight="250.0" prefWidth="500.0" />
         </AnchorPane>
       </Tab>
     </TabPane>

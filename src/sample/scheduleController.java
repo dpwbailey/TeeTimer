@@ -7,8 +7,11 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.DataFormat;
@@ -35,7 +38,49 @@ public class scheduleController extends Application {
     @FXML
     private TableColumn<Appointment, String> numOfPlayersColumn;
 
-   // private static final DataFormat format = new DataFormat("/Appointment");
+    @FXML
+    private ListView<?> customerFileListView;
+
+
+    @FXML
+    private TextField csvSearchTextField;
+
+    @FXML
+    private Button csvSearchButton;
+
+    @FXML
+    private Button generateScheduleButton;
+
+    @FXML
+    private Button fileToTableViewButton;
+
+    @FXML
+    void sendFileToTableView(MouseEvent event) {
+        //get selected file from listview
+        //send that file to table view arraylist
+        //call setUpObservableList to update the tableview with the new file
+
+    }
+
+
+    @FXML
+    void csvSearch(MouseEvent event) {
+        //call downloadGarminData(user entered name)
+        //call getCsvPaths to populate an ArrayList with all the file paths
+        //read the data from the specific file path to get desired fields (call getName -> name and date)
+        //populate listview with new arraylist of all the desired values
+
+    }
+
+    @FXML
+    void generateSchedule(MouseEvent event) {
+
+        //use the values in the tableview arraylist to generate a schedule
+        //append that schedule to the Text Area
+    }
+
+
+    // private static final DataFormat format = new DataFormat("/Appointment");
 
 
     private static ObservableList<Appointment> observableAppointments = FXCollections
