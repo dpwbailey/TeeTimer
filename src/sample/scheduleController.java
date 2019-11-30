@@ -1,5 +1,6 @@
 package sample;
 
+import java.nio.ByteBuffer;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -9,6 +10,12 @@ import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.ClipboardContent;
+import javafx.scene.input.DataFormat;
+import javafx.scene.input.DragEvent;
+import javafx.scene.input.Dragboard;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.input.TransferMode;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -16,6 +23,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 
 public class scheduleController extends Application {
+
     @FXML
     private TableView<Appointment> scheduleTable;
     @FXML
@@ -27,13 +35,41 @@ public class scheduleController extends Application {
     @FXML
     private TableColumn<Appointment, String> numOfPlayersColumn;
 
+   // private static final DataFormat format = new DataFormat("/Appointment");
 
-    private static ObservableList<Appointment> observableAppointments = FXCollections.observableArrayList();
+
+    private static ObservableList<Appointment> observableAppointments = FXCollections
+        .observableArrayList();
 
 
     public static void main(String[] args) {
         Application.launch(args);
     }
+
+    /*@FXML
+    void handleTableViewDrag(MouseEvent event) {
+        Appointment selected = scheduleTable.getSelectionModel().getSelectedItem();
+        Dragboard dragboard = scheduleTable.startDragAndDrop(TransferMode.COPY);
+        ClipboardContent content = new ClipboardContent();
+        //content.putString("Test");
+         content.put(format, selected);
+        dragboard.setContent(content);
+        event.consume();
+    }*/
+
+   /* @FXML
+    void handleDragDrop(DragEvent event) {
+
+}
+
+    @FXML
+    void handleDragDone(MouseEvent event) {
+
+    }*/
+
+
+
+
 
     //Runs every time the scene for this controller is loaded.
     @FXML

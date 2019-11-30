@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
@@ -9,71 +11,81 @@
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
 
-<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/8.0.171"
-  xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.scheduleController">
+<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.scheduleController">
   <MenuBar VBox.vgrow="NEVER">
     <Menu mnemonicParsing="false" text="File">
-      <MenuItem mnemonicParsing="false" text="New"/>
-      <MenuItem mnemonicParsing="false" text="Open…"/>
-      <Menu mnemonicParsing="false" text="Open Recent"/>
-      <SeparatorMenuItem mnemonicParsing="false"/>
-      <MenuItem mnemonicParsing="false" text="Close"/>
-      <MenuItem mnemonicParsing="false" text="Save"/>
-      <MenuItem mnemonicParsing="false" text="Save As…"/>
-      <MenuItem mnemonicParsing="false" text="Revert"/>
-      <SeparatorMenuItem mnemonicParsing="false"/>
-      <MenuItem mnemonicParsing="false" text="Preferences…"/>
-      <SeparatorMenuItem mnemonicParsing="false"/>
-      <MenuItem mnemonicParsing="false" text="Quit"/>
+      <MenuItem mnemonicParsing="false" text="New" />
+      <MenuItem mnemonicParsing="false" text="Open…" />
+      <Menu mnemonicParsing="false" text="Open Recent" />
+      <SeparatorMenuItem mnemonicParsing="false" />
+      <MenuItem mnemonicParsing="false" text="Close" />
+      <MenuItem mnemonicParsing="false" text="Save" />
+      <MenuItem mnemonicParsing="false" text="Save As…" />
+      <MenuItem mnemonicParsing="false" text="Revert" />
+      <SeparatorMenuItem mnemonicParsing="false" />
+      <MenuItem mnemonicParsing="false" text="Preferences…" />
+      <SeparatorMenuItem mnemonicParsing="false" />
+      <MenuItem mnemonicParsing="false" text="Quit" />
     </Menu>
     <Menu mnemonicParsing="false" text="Edit">
-      <MenuItem mnemonicParsing="false" text="Undo"/>
-      <MenuItem mnemonicParsing="false" text="Redo"/>
-      <SeparatorMenuItem mnemonicParsing="false"/>
-      <MenuItem mnemonicParsing="false" text="Cut"/>
-      <MenuItem mnemonicParsing="false" text="Copy"/>
-      <MenuItem mnemonicParsing="false" text="Paste"/>
-      <MenuItem mnemonicParsing="false" text="Delete"/>
-      <SeparatorMenuItem mnemonicParsing="false"/>
-      <MenuItem mnemonicParsing="false" text="Select All"/>
-      <MenuItem mnemonicParsing="false" text="Unselect All"/>
+      <MenuItem mnemonicParsing="false" text="Undo" />
+      <MenuItem mnemonicParsing="false" text="Redo" />
+      <SeparatorMenuItem mnemonicParsing="false" />
+      <MenuItem mnemonicParsing="false" text="Cut" />
+      <MenuItem mnemonicParsing="false" text="Copy" />
+      <MenuItem mnemonicParsing="false" text="Paste" />
+      <MenuItem mnemonicParsing="false" text="Delete" />
+      <SeparatorMenuItem mnemonicParsing="false" />
+      <MenuItem mnemonicParsing="false" text="Select All" />
+      <MenuItem mnemonicParsing="false" text="Unselect All" />
     </Menu>
     <Menu mnemonicParsing="false" text="Help">
-      <MenuItem mnemonicParsing="false" text="About MyHelloApp"/>
+      <MenuItem mnemonicParsing="false" text="About MyHelloApp" />
     </Menu>
   </MenuBar>
-  <AnchorPane
-    VBox.vgrow="ALWAYS">
-    <Label alignment="CENTER" layoutX="155.0" layoutY="177.0" style="&#10;"
-      text="Drag components from Library here…" textAlignment="CENTER" textFill="#9f9f9f"
-    >
-      <font>
-        <Font size="18.0"/>
-      </font>
-    </Label>
-    <TabPane layoutX="4.0" layoutY="4.0" prefHeight="368.0" prefWidth="633.0"
-      tabClosingPolicy="UNAVAILABLE">
+  <AnchorPane VBox.vgrow="ALWAYS">
+    <TabPane layoutX="4.0" layoutY="4.0" prefHeight="368.0" prefWidth="633.0" tabClosingPolicy="UNAVAILABLE">
       <Tab text="Customer Data">
-        <AnchorPane id="scheduleAnchorPane" minHeight="0.0"
-          minWidth="0.0" prefHeight="515.0" prefWidth="633.0"/>
+        <AnchorPane id="scheduleAnchorPane" minHeight="0.0" minWidth="0.0" prefHeight="515.0"
+          prefWidth="633.0">
+          <ListView layoutX="14.0" layoutY="25.0" prefHeight="300.0" prefWidth="250.0"/>
+          <Label layoutX="14.0" layoutY="6.0" prefHeight="17.0" prefWidth="199.0"
+            text="Current Files:"/>
+          <AnchorPane layoutX="333.0" layoutY="25.0" prefHeight="111.0" prefWidth="190.0">
+            <TextField layoutX="123.0" layoutY="63.0"/>
+            <TextField layoutX="123.0" layoutY="31.0"/>
+            <Label layoutX="168.0" layoutY="6.0" text="Create File:"/>
+            <Label layoutX="78.0" layoutY="35.0" text="Name:"/>
+            <Label layoutX="37.0" layoutY="67.0" text="Preferred Time:"/>
+          </AnchorPane>
+          <AnchorPane layoutX="347.0" layoutY="147.0" prefHeight="111.0" prefWidth="190.0">
+            <TextField layoutX="113.0" layoutY="52.0"/>
+            <Label layoutX="90.0" layoutY="14.0" text="Search For CSV:"/>
+            <Label layoutX="65.0" layoutY="56.0" text="Name:"/>
+          </AnchorPane>
+        </AnchorPane>
       </Tab>
       <Tab text="Schedule Generator">
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-          <TableView id="scheduleTable" fx:id="scheduleTable" layoutX="1.0"
-            prefHeight="338.0" prefWidth="633.0">
+          <TableView id="scheduleTable" fx:id="scheduleTable" layoutX="1.0" prefHeight="338.0" prefWidth="460.0">
             <columns>
-              <TableColumn fx:id="nameColumn" prefWidth="75.0" text="Name"/>
-              <TableColumn fx:id="prefTimeColumn" prefWidth="118.0" text="Preferred Time"/>
-              <TableColumn fx:id="aveRoundColumn" prefWidth="130.0"
-                text="Ave. Round Duration"/>
-              <TableColumn fx:id="numOfPlayersColumn" prefWidth="137.0"
-                text="Number of Players"/>
+              <TableColumn fx:id="nameColumn" prefWidth="75.0" text="Name" />
+              <TableColumn fx:id="prefTimeColumn" prefWidth="118.0" text="Preferred Time" />
+              <TableColumn fx:id="aveRoundColumn" prefWidth="130.0" text="Ave. Round Duration" />
+              <TableColumn fx:id="numOfPlayersColumn" prefWidth="137.0" text="Number of Players" />
             </columns>
           </TableView>
+               <Button layoutX="487.0" layoutY="14.0" mnemonicParsing="false" text="Generate Schedule" />
+        </AnchorPane>
+      </Tab>
+      <Tab text="Schedule View">
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+          <TextArea layoutX="67.0" layoutY="45.0" prefHeight="250.0" prefWidth="500.0"/>
         </AnchorPane>
       </Tab>
     </TabPane>
