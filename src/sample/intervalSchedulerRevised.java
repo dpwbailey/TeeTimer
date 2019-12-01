@@ -5,9 +5,9 @@ import java.util.Arrays;
 import java.util.Random;
 
 public class intervalSchedulerRevised {
-    private Job[][] jobs;    //array of jobs. Each job is [id, startTime, finishTime, value]
-    private int[] memo;        //memoization array
-    private ArrayList<Integer> includedJobs = new ArrayList<Integer>();        //holds jobs in optimal solution. The id's are id's of the sorted jobs, so must be converted to the original ID's by getJobInfo
+    private static Job[][] jobs;    //array of jobs. Each job is [id, startTime, finishTime, value]
+    private static int[] memo;        //memoization array
+    public static ArrayList<Integer> includedJobs = new ArrayList<Integer>();        //holds jobs in optimal solution. The id's are id's of the sorted jobs, so must be converted to the original ID's by getJobInfo
 
     static class Job {
 
@@ -54,7 +54,7 @@ public class intervalSchedulerRevised {
         }
     }
 
-    public void calcSchedule(Job[][] inputJobs) {
+    public static void calcSchedule(Job[][] inputJobs) {
         jobs = inputJobs;
         memo = new int[jobs.length];    //create memoization array
 
@@ -77,7 +77,7 @@ public class intervalSchedulerRevised {
     }
 
     //Find the index of the job finishing before job i starts (uses jobs[][] array sorted by finish time)
-    private int latestCompatible(int i) {
+    private static int latestCompatible(int i) {
         int low = 0, high = i - 1;
 
         while (low <= high) {        //Iterative binary search
@@ -94,7 +94,7 @@ public class intervalSchedulerRevised {
     }
 
     //Iterative version of the recursive code to retrace & find the optimal solution
-    public void findSolutionIterative(int j) {
+    public static void findSolutionIterative(int j) {
         while (j > 0) {    //Stops when j==0
             int compatibleIndex = latestCompatible(j);    //find latest finishing job that's compatible with job j
             if (jobs[j][3].profit + memo[compatibleIndex] > memo[j - 1]) {    //Case where job j was included (from optimal substructure)
@@ -107,7 +107,7 @@ public class intervalSchedulerRevised {
     }
 
     //convert a time in the format xx:yy:zz to seconds
-    public int convertDurationToInteger(String timeAsString) {
+    public static int convertDurationToInteger(String timeAsString) {
         String[] durationStringArray = timeAsString.split(":");
         int hours = Integer.parseInt(durationStringArray[0]);
         int minutes = Integer.parseInt(durationStringArray[1]);
@@ -116,20 +116,26 @@ public class intervalSchedulerRevised {
         return totalTime;
     }
 
-    public Job[] convertAppointmentArrayListToJobs(ArrayList<Appointment> apArL) {
-        Job[] jobArray = new Job[apArL.size()];
-        apArL.toArray();
-        for (int i = 0; i < apArL.size(); i++) {
+    public static Job[][] convertAppointmentArrayListToJobs(ArrayList<Appointment> apArL) {
+        Job[][] jobArray = new Job[apArL.size()][];
+        Object[] objArray = apArL.toArray();
+
+        for (int i = 0; i < objArray.length; i++) {
+            System.out.println("The objArray: " + objArray[i]);
+        }
+
+        /*for (int i = 1; i < apArL.size(); i++) {
             Appointment currApp = apArL.get(i);
             if (jobArray.length == 0) {
                 jobArray[i].start = convertDurationToInteger(currApp.getPreferredTime());
-            } else if (jobArray.length > 0) {
+            } else {
                 jobArray[i].start = jobArray[i - 1].finish + (9 * 60); // 9 minutes after the previous job
             }
             jobArray[i].finish = convertDurationToInteger(currApp.getAverageRoundDuration());
 
             // jobArray[i] = apArL.get(i);
-        }
+        }*/
+        System.out.println("Job Array: " + Arrays.toString(jobArray));
         return jobArray;
     }
 
@@ -167,7 +173,7 @@ public class intervalSchedulerRevised {
     }
 
     //Get a human-readable String representing the job & its 4 parts
-    private String getJobInfo(int jobIndex) {
+    private static String getJobInfo(int jobIndex) {
         return "Job " + jobs[jobIndex][0].getId() + ":  Time (" + jobs[jobIndex][1].getStart() + "-" + jobs[jobIndex][2].getFinish() + ") Value=" + jobs[jobIndex][3].getProfit();
     }
 

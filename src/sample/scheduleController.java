@@ -78,37 +78,49 @@ public class scheduleController extends Application {
   ObservableList<Integer> numOfPlayersList =
       FXCollections.observableArrayList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
 
+  public static String selectedFilePath;
+
 
   @FXML
   void sendFileToTableView(MouseEvent event) throws IOException {
     //get selected file from listview
     String selectedFile = customerFileListView.getSelectionModel().getSelectedItem();
     String testTimeSelection = prefferedTimeTextField.getText();
+
     if (!(selectedFile == null) && !(testTimeSelection.equals(""))) {
-      String fileName = csvFunctions.getName(selectedFile, "title");
-      String fileDuration = csvFunctions.getName(selectedFile, "duration");
-      int numOfPlayers = numOfPlayerComboBox.getSelectionModel().getSelectedItem();
-      String prefferedTime = prefferedTimeTextField.getText();
 
-      Appointment newAppointment = new Appointment(fileName, prefferedTime, fileDuration,
-          numOfPlayers);
+      for(String path : csvFunctions.filesPaths) {
+        if(path.contains(selectedFile)) {
+          selectedFilePath = path;
+          String fileName = csvFunctions.getName(selectedFilePath, "title");
+          String fileDuration = csvFunctions.getName(selectedFilePath, "duration");
+          int numOfPlayers = numOfPlayerComboBox.getSelectionModel().getSelectedItem();
+          String prefferedTime = prefferedTimeTextField.getText();
 
-      Appointment.appointmentArrayList.add(newAppointment);
-      System.out
-          .println("Appointment array list for table view: " + Appointment.appointmentArrayList);
+          Appointment newAppointment = new Appointment(fileName, prefferedTime, fileDuration,
+              numOfPlayers);
 
-      observableAppointments.add(newAppointment);
+          Appointment.appointmentArrayList.add(newAppointment);
+          System.out
+              .println("Appointment array list for table view: " + Appointment.appointmentArrayList);
 
-      createFileSentValidator(true);
+          observableAppointments.add(newAppointment);
 
-      //send that file to table view arraylist
-      //call setUpObservableList to update the tableview with the new file
-    } else {
-      createFileSentValidator(false);
+          createFileSentValidator(true);
+
+          //send that file to table view arraylist
+          //call setUpObservableList to update the tableview with the new file
+        } else {
+          createFileSentValidator(false);
+        }
+      }
+
+      }
+
+
     }
 
 
-  }
 
 
   @FXML
@@ -134,7 +146,7 @@ public class scheduleController extends Application {
   @FXML
   void generateSchedule(MouseEvent event) {
 
-    /*//Hard code schedule for now
+    //Hard code schedule for now
     String tempSchedule = "1. Joe Smith -> 7:00 am Start time" + '\n'
         + "2. Bob John -> 7:35 am Start time" + '\n'
         + "3. Sam Walker -> 7:55 am Start time" + '\n'
@@ -145,11 +157,15 @@ public class scheduleController extends Application {
         + "8. LeBron James -> 10:15 am Start time" + '\n'
         + "9. Blake Henderson -> 10:55 am Start time";
 
-    scheduleTextArea.appendText(tempSchedule);*/
+    scheduleTextArea.appendText(tempSchedule);
 
     if (!Appointment.appointmentArrayList.isEmpty()) {
 
-      intervalSchedulerRevised.convertAppointmentArrayListToJobs(Appointment.appointmentArrayList);
+      /*intervalSchedulerRevised.Job[][] testArray = intervalSchedulerRevised.generateSampleData();
+      intervalSchedulerRevised.calcSchedule(testArray);
+      scheduleTextArea.appendText(intervalSchedulerRevised.includedJobs.toString());*/
+
+      //intervalSchedulerRevised.convertAppointmentArrayListToJobs(Appointment.appointmentArrayList);
       //use the values in the tableview arraylist to generate a schedule
       //append that schedule to the Text Area
 

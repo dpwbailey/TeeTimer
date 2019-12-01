@@ -28,6 +28,7 @@ public class csvFunctions {
   private static String csvPath = "C:\\Users\\dpwba\\IdeaProjects\\TeeTimer\\src\\Activities.csv";
 
   public static List<String> fileNames = new LinkedList<>();
+  public static List<String> filesPaths = new LinkedList<>();
 
 
   public static File getDirectoryPath() {
@@ -46,6 +47,7 @@ public class csvFunctions {
       } else {
           if (fileEntry.getName().contains(".csv")) {
               fileNames.add(displayString);
+              filesPaths.add(fileEntry.getPath());
           }
       }
     }
