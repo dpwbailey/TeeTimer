@@ -17,12 +17,12 @@ import static jdk.nashorn.internal.objects.Global.print;
 
 public class csvFunctions {
 
-    private static File directoryPath = new File("C:\\Users\\alann\\OneDrive\\Entrepreneurship\\TeeTimerTest2");
+    private static File directoryPath = new File("C:\\Users\\alann\\OneDrive\\Entrepreneurship\\TeeTimer");
     private static File activitiesCSV = new File(
             "C:\\Users\\Dan\\Documents\\GitHub\\TeeTimer\\src\\Activities.csv");
     private static String csvPath = "C:\\Users\\dpwba\\IdeaProjects\\TeeTimer\\src\\Activities.csv";
 
-    public static List<String> fileNames = new LinkedList<String>();
+    public static List<String> fileNames = new LinkedList<>();
 
 
 

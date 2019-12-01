@@ -1,13 +1,12 @@
 package sample;
 
-import java.nio.ByteBuffer;
-import java.util.Arrays;
 import javafx.animation.FadeTransition;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -17,12 +16,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.ClipboardContent;
-import javafx.scene.input.DataFormat;
-import javafx.scene.input.DragEvent;
-import javafx.scene.input.Dragboard;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.input.TransferMode;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -234,7 +228,7 @@ public class scheduleController extends Application {
 
   //Runs every time the scene for this controller is loaded.
   @FXML
-  public void initialize() throws IOException {
+  public void initialize() {
     System.out.println("Initialize worked!");
     validationLabel.setVisible(false);
     scheduleValidationLabel.setVisible(false);
@@ -274,22 +268,13 @@ public class scheduleController extends Application {
 
   @Override
   public void start(Stage stage) throws IOException {
-    // Create the FXMLLoader
-    FXMLLoader loader = new FXMLLoader();
-    // Path to the FXML File
-    String fxmlDocPath = "src/sample/schedule.fxml";
-    FileInputStream fxmlStream = new FileInputStream(fxmlDocPath);
 
-    // Create the Pane and all Details
-    VBox root = (VBox) loader.load(fxmlStream);
-
-    // Create the Scene
-    Scene scene = new Scene(root);
-    // Set the Scene to the Stage
-    stage.setScene(scene);
-    // Set the Title to the Stage
+    Parent root = FXMLLoader.load(getClass().getResource("schedule.fxml"));
     stage.setTitle("TeeTimer");
-    // Display the Stage
+    root.getStylesheets().add
+        (scheduleController.class.getResource("teeTimer.css").toExternalForm());
+    stage.setScene(new Scene(root, 640, 400));
     stage.show();
+
   }
 }
