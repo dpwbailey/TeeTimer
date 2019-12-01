@@ -14,6 +14,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.ClipboardContent;
@@ -43,6 +44,9 @@ public class scheduleController extends Application {
   private TableColumn<Appointment, String> numOfPlayersColumn;
 
   @FXML
+  private TextArea scheduleTextArea;
+
+  @FXML
   private ListView<String> customerFileListView;
 
   @FXML
@@ -51,6 +55,9 @@ public class scheduleController extends Application {
 
   @FXML
   private TextField csvSearchTextField;
+
+  @FXML
+  private Label scheduleValidationLabel;
 
   @FXML
   private Button csvSearchButton;
@@ -99,17 +106,40 @@ public class scheduleController extends Application {
   void csvSearch(MouseEvent event) throws IOException {
     //call downloadGarminData(user entered name)
     String enteredName = csvSearchTextField.getText();
-    csvFunctions.downloadGarminData(enteredName);
-    //call getCsvPaths to populate an ArrayList with all the file paths
-    csvFunctions.getCsvPaths(csvFunctions.getDirectoryPath());
+    if(!enteredName.equals("")) {
+      csvFunctions.downloadGarminData(enteredName);
+      //call getCsvPaths to populate an ArrayList with all the file paths
+      csvFunctions.getCsvPaths(csvFunctions.getDirectoryPath());
 
-    //read the data from the specific file path to get desired fields (call getName -> name and date)
-    //populate listview with new arraylist of all the desired values
+      createCsvSearchSuccessValidator(true);
+
+      //read the data from the specific file path to get desired fields (call getName -> name and date)
+      //populate listview with new arraylist of all the desired values
+    } else {
+      createCsvSearchSuccessValidator(false);
+    }
+
+
 
   }
 
   @FXML
   void generateSchedule(MouseEvent event) {
+
+
+    //Hard code schedule for now
+    String tempSchedule = "1. Joe Smith -> 7:00 am Start time" + '\n'
+        + "2. Bob John -> 7:35 am Start time" + '\n'
+    +"3. Sam Walker -> 7:55 am Start time" + '\n'
+   + "4. John Smith -> 8:15 am Start time" + '\n'
+    +"5. Alan Samuel -> 8:50 am Start time" + '\n'
+   + "6. Ron Don -> 9:20 am Start time" + '\n'
+   + "7. Jake West -> 9:45 am Start time" + '\n'
+    +"8. LeBron James -> 10:15 am Start time" + '\n'
+    +"9. Blake Henderson -> 10:55 am Start time";
+
+
+    scheduleTextArea.appendText(tempSchedule);
 
       if(!Appointment.appointmentArrayList.isEmpty()) {
 
@@ -181,14 +211,25 @@ public class scheduleController extends Application {
   }
     private void createScheduleSuccessValidator(boolean success) {
         if(success) {
-            validationLabel.setText("Success");
+            scheduleValidationLabel.setText("Success");
         } else {
-            validationLabel.setText("Schedule wasn't Valid");
+          scheduleValidationLabel.setText("Schedule wasn't Valid");
         }
-        validationLabel.setVisible(true);
+      scheduleValidationLabel.setVisible(true);
         loginFadeOut.playFromStart();
 
     }
+
+  private void createCsvSearchSuccessValidator(boolean success) {
+    if(success) {
+      validationLabel.setText("Success");
+    } else {
+      validationLabel.setText("Search Failed");
+    }
+    validationLabel.setVisible(true);
+    loginFadeOut.playFromStart();
+
+  }
 
 
   //Runs every time the scene for this controller is loaded.
@@ -196,6 +237,12 @@ public class scheduleController extends Application {
   public void initialize() throws IOException {
     System.out.println("Initialize worked!");
     validationLabel.setVisible(false);
+    scheduleValidationLabel.setVisible(false);
+    loginFadeOut.setNode(scheduleValidationLabel);
+    loginFadeOut.setFromValue(1.0);
+    loginFadeOut.setToValue(0.0);
+    loginFadeOut.setCycleCount(1);
+    loginFadeOut.setAutoReverse(false);
     loginFadeOut.setNode(validationLabel);
     loginFadeOut.setFromValue(1.0);
     loginFadeOut.setToValue(0.0);
