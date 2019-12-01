@@ -14,7 +14,7 @@ import java.util.ArrayList;
 
 public class Appointment extends intervalScheduler {
 
-    private static String csvPath = "C:\\Users\\alann\\OneDrive\\Entrepreneurship\\TeeTimerTest2\\src\\Activities.csv";
+    private static String csvPath = "C:\\Users\\alann\\OneDrive\\Entrepreneurship\\TeeTimer\\src\\Activities.csv";
     //  Appointment appointment = new Appointment();
     private String name = "Default Name";
     private String preferredTime = "Default Preferred Time";
@@ -41,7 +41,7 @@ public class Appointment extends intervalScheduler {
         this.averageRoundDuration = averageRoundDuration;
         this.numPlayers = numPlayers;
 
-        Reader reader = Files.newBufferedReader(Paths.get(csvPath));
+        /*Reader reader = Files.newBufferedReader(Paths.get(csvPath));
         CSVParser csvParser;
 
         File file = new File(name + ".csv");
@@ -68,7 +68,7 @@ public class Appointment extends intervalScheduler {
         } else {
             System.out.println("File not found");
             appointmentArrayList.add(this);
-        }
+        }*/
 
     }
 
