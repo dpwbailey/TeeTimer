@@ -21,6 +21,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+import java.awt.*;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import javafx.util.Duration;
@@ -53,6 +55,11 @@ public class scheduleController extends Application {
   @FXML
   private Label validationLabel;
 
+  @FXML
+  private Button resetButton;
+
+  @FXML
+  private Button showCsvFileButton;
 
   @FXML
   private TextField csvSearchTextField;
@@ -106,21 +113,22 @@ public class scheduleController extends Application {
 
           observableAppointments.add(newAppointment);
 
+          Appointment.appointmentArrayList.clear();
+
+          System.out
+                  .println("Appointment array list for table view after clear: " + Appointment.appointmentArrayList);
+
           createFileSentValidator(true);
 
           //send that file to table view arraylist
           //call setUpObservableList to update the tableview with the new file
-        } else {
-          createFileSentValidator(false);
         }
       }
 
-      }
-
-
+      } else {
+      createFileSentValidator(false);
     }
-
-
+    }
 
 
   @FXML
@@ -178,6 +186,56 @@ public class scheduleController extends Application {
 
   }
 
+  @FXML
+  void openCsvFile(MouseEvent event) throws IOException {
+String fileSelected = customerFileListView.getSelectionModel().getSelectedItem();
+    Desktop desktop = Desktop.getDesktop();
+if(!(fileSelected == null)) {
+  for(String path : csvFunctions.filesPaths) {
+    if(path.contains(fileSelected)) {
+      selectedFilePath = path;
+      File file = new File(selectedFilePath);
+      desktop.open(file);
+    }
+  }
+}
+
+  }
+
+  @FXML
+  void resetProgram(MouseEvent event) throws IOException {
+// get a handle to the stage
+    Stage stage = (Stage) resetButton.getScene().getWindow();
+    // do what you have to do
+    stage.close();
+    customerFileListView.getItems().clear();
+
+
+    //Appointment.appointmentArrayList.clear();
+
+
+    //stage.show();
+
+
+
+    System.out
+            .println("Appointment array list for table view before reload: " + Appointment.appointmentArrayList);
+
+    Parent root = FXMLLoader.load(getClass().getResource("schedule.fxml"));
+    stage.setTitle("TeeTimer");
+    root.getStylesheets().add
+            (scheduleController.class.getResource("teeTimer.css").toExternalForm());
+    stage.setScene(new Scene(root, 640, 400));
+    stage.show();
+
+    System.out
+            .println("Appointment array list for table view after reload: " + Appointment.appointmentArrayList);
+
+
+
+
+  }
+
   private void setUpListView() {
     customerFileListView.setItems(observableListView);
 
@@ -206,8 +264,8 @@ public class scheduleController extends Application {
     if (success) {
       validationLabel.setText("Success");
     } else {
-      validationLabel.setText("Select File to Send or "
-          + '\n' + "add Preferred Time");
+      validationLabel.setText("Select File To Send or "
+          + '\n' + "Add Preferred Time");
     }
     validationLabel.setVisible(true);
     loginFadeOut.playFromStart();
@@ -218,7 +276,7 @@ public class scheduleController extends Application {
     if (success) {
       scheduleValidationLabel.setText("Success");
     } else {
-      scheduleValidationLabel.setText("Schedule wasn't Valid");
+      scheduleValidationLabel.setText("Schedule Wasn't Valid");
     }
     scheduleValidationLabel.setVisible(true);
     loginFadeOut.playFromStart();
@@ -242,6 +300,12 @@ public class scheduleController extends Application {
   public void initialize() {
     System.out.println("Initialize worked!");
     // Loops through comboBox and adds values 1 to 10
+
+    Appointment.appointmentArrayList.clear();
+    observableAppointments.clear();
+    observableListView.clear();
+    csvFunctions.filesPaths.clear();
+    csvFunctions.fileNames.clear();
 
     validationLabel.setVisible(false);
     scheduleValidationLabel.setVisible(false);
@@ -267,6 +331,8 @@ public class scheduleController extends Application {
     // Appointment testAppointment = new Appointment();
 
     // intervalScheduler.main(null);
+
+
 
     observableAppointments.addAll(Appointment.appointmentArrayList);
 
