@@ -47,8 +47,8 @@ public class scheduleController extends Application {
     @FXML
     private TextArea scheduleTextArea;
 
-    @FXML
-    private TextField prefferedTimeTextField;
+  @FXML
+  private TextField prefferedTimeTextField;
 
     @FXML
     private ListView<String> customerFileListView;
@@ -110,6 +110,15 @@ public class scheduleController extends Application {
 
     public static String selectedFilePath;
 
+    public static boolean isNumeric(String text) {
+      try {
+        Integer.parseInt(text);
+        return true;
+      } catch (NumberFormatException nfe) {
+        return false;
+      }
+    }
+
 
     @FXML
     void sendFileToTableView(MouseEvent event) throws IOException {
@@ -117,37 +126,43 @@ public class scheduleController extends Application {
         String selectedFile = customerFileListView.getSelectionModel().getSelectedItem();
         String testTimeSelection = prefferedTimeTextField.getText();
 
-        if (!(selectedFile == null) && !(testTimeSelection.equals(""))) {
+        if(!(isNumeric(testTimeSelection)) && !(testTimeSelection.equals(""))) {
+          createInvalidTimeValidator(false);
+        } else {
+          if (!(selectedFile == null) && !(testTimeSelection.equals(""))) {
+
 
             for (String path : csvFunctions.filesPaths) {
-                if (path.contains(selectedFile) && !(path.contains("out"))) {
-                    selectedFilePath = path;
-                    String fileName = csvFunctions.getName(selectedFilePath, "title");
-                    String fileDuration = csvFunctions.getName(selectedFilePath, "duration");
-                    int numOfPlayers = numOfPlayerComboBox.getSelectionModel().getSelectedItem();
-                    String prefferedTime = prefferedTimeTextField.getText();
+              if (path.contains(selectedFile) && !(path.contains("out"))) {
+                selectedFilePath = path;
+                String fileName = csvFunctions.getName(selectedFilePath, "title");
+                String fileDuration = csvFunctions.getName(selectedFilePath, "duration");
+                int numOfPlayers = numOfPlayerComboBox.getSelectionModel().getSelectedItem();
+                String prefferedTime = prefferedTimeTextField.getText();
 
-                    Appointment newAppointment = new Appointment(fileName, prefferedTime, fileDuration,
-                            numOfPlayers);
+                Appointment newAppointment = new Appointment(fileName, prefferedTime, fileDuration,
+                    numOfPlayers);
 
-                    Appointment.appointmentArrayList.add(newAppointment);
-                    System.out
-                            .println("Appointment array list for table view: " + Appointment.appointmentArrayList);
+                Appointment.appointmentArrayList.add(newAppointment);
+                System.out
+                    .println("Appointment array list for table view: " + Appointment.appointmentArrayList);
 
-                    observableAppointments.add(newAppointment);
+                observableAppointments.add(newAppointment);
 
-                   // Appointment.appointmentArrayList.clear();
+                // Appointment.appointmentArrayList.clear();
 
-                    createFileSentValidator(true);
+                createFileSentValidator(true);
 
-                    //send that file to table view arraylist
-                    //call setUpObservableList to update the tableview with the new file
-                }
+                //send that file to table view arraylist
+                //call setUpObservableList to update the tableview with the new file
+              }
             }
 
-        } else {
+          } else {
             createFileSentValidator(false);
+          }
         }
+
     }
 
 
@@ -323,6 +338,17 @@ public class scheduleController extends Application {
         loginFadeOut.playFromStart();
 
     }
+
+  private void createInvalidTimeValidator(boolean success) {
+    if (success) {
+      validationLabel.setText("Success");
+    } else {
+      validationLabel.setText("Enter Time in Format: 1 - 12");
+    }
+    validationLabel.setVisible(true);
+    loginFadeOut.playFromStart();
+
+  }
 
     private void createCsvSearchSuccessValidator(boolean success) {
         if (success) {
