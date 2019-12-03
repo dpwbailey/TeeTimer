@@ -22,7 +22,7 @@ import org.apache.commons.csv.CSVRecord;
 public class csvFunctions {
 
   private static File directoryPath = new File(
-      "C:\\Users\\alann\\OneDrive\\Entrepreneurship\\TeeTimer");
+      "C:\\Users\\alann\\OneDrive\\Entrepreneurship\\TeeTimerCurrent");
   private static File activitiesCSV = new File(
       "C:\\Users\\Dan\\Documents\\GitHub\\TeeTimer\\src\\Activities.csv");
   private static String csvPath = "C:\\Users\\dpwba\\IdeaProjects\\TeeTimer\\src\\Activities.csv";
@@ -36,22 +36,24 @@ public class csvFunctions {
   }
 
 
-  public static void getCsvPaths(File folder) {
-
+  public static String getCsvPaths(File folder) {
+    String returnString = null;
+    
     for (File fileEntry : folder.listFiles()) {
       String path = fileEntry.getName();
-      String displayString = path.replace(".csv", "");
+      returnString = path.replace(".csv", "");
 
       if (fileEntry.isDirectory()) {
         getCsvPaths(fileEntry);
       } else {
           if (fileEntry.getName().contains(".csv")) {
-              fileNames.add(displayString);
+              fileNames.add(returnString);
               filesPaths.add(fileEntry.getPath());
           }
       }
     }
     System.out.println("filenames array: " + fileNames);
+    return returnString;
   }
 
   //pass the argument -d 'Client's Name' into to check if file already exists. if it does, appends to end of clientname.csv

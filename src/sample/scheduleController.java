@@ -1,10 +1,12 @@
 package sample;
 
+import java.util.logging.Logger;
 import javafx.animation.FadeTransition;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -16,18 +18,14 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.VBox;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import java.awt.*;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.LinkedList;
-import java.util.List;
 
+import javafx.util.Callback;
 import javafx.util.Duration;
 
 public class scheduleController extends Application {
@@ -55,16 +53,29 @@ public class scheduleController extends Application {
     @FXML
     private ListView<String> customerFileListView;
 
-    @FXML
-    private ChoiceBox<String> highlightSelector;
+  @FXML
+  private CheckBox highlightRed;
+
+  @FXML
+  private CheckBox highlightYellow;
+
+  @FXML
+  private CheckBox highlightGreen;
 
     @FXML
     private Label validationLabel;
 
+  @FXML
+  private Button highlightButton;
+
     @FXML
     private Button resetButton;
 
-    @FXML
+  @FXML
+  private Button browseButton;
+
+
+  @FXML
     private Button showCsvFileButton;
 
     @FXML
@@ -72,6 +83,9 @@ public class scheduleController extends Application {
 
     @FXML
     private Label scheduleValidationLabel;
+
+    @FXML
+    private CheckBox highlightCheckBox;
 
     @FXML
     private Button csvSearchButton;
@@ -138,26 +152,6 @@ public class scheduleController extends Application {
 
 
     @FXML
-    void csvSearch(MouseEvent event) throws IOException {
-        //call downloadGarminData(user entered name)
-        String enteredName = csvSearchTextField.getText();
-        if (!enteredName.equals("")) {
-            csvFunctions.downloadGarminData(enteredName);
-            //call getCsvPaths to populate an ArrayList with all the file paths
-            csvFunctions.getCsvPaths(csvFunctions.getDirectoryPath());
-
-            createCsvSearchSuccessValidator(true);
-
-            //read the data from the specific file path to get desired fields (call getName -> name and date)
-            //populate listview with new arraylist of all the desired values
-        } else {
-            createCsvSearchSuccessValidator(false);
-        }
-
-
-    }
-
-    @FXML
     void generateSchedule(MouseEvent event) {
 
         //Hard code schedule for now
@@ -210,6 +204,12 @@ public class scheduleController extends Application {
 
     @FXML
     void highlightFilesByCategory(MouseEvent event) {
+      boolean redChecked = highlightRed.isSelected();
+      boolean yellowChecked = highlightYellow.isSelected();
+      boolean greenChecked = highlightGreen.isSelected();
+
+
+
 //Highlight a file in the listview based on if that file fits the criteria set by the user
         //If duration is longer than 3 but less than 4 highlight all those files red
 
@@ -247,25 +247,48 @@ public class scheduleController extends Application {
 
     }
 
+  @FXML
+  void openFileExplorer(ActionEvent event) {
+    FileChooser fileChooser = new FileChooser();
+    Stage stage = (Stage) csvSearchButton.getScene().getWindow();
+    File fileSelected = fileChooser.showOpenDialog(stage);
+    if(fileSelected != null) {
+      selectedFilePath =  fileSelected.getPath();
+      System.out.println(selectedFilePath);
+    } else {
+      System.out.println("Cancelled");
+    }
+  }
+
+  @FXML
+  void csvSearch(ActionEvent event) {
+      String searchText = csvSearchTextField.getText();
+      File folder = new File(searchText);
+    String test = csvFunctions.getCsvPaths(folder);
+    observableListView.add(test);
+
+
+
+
+  }
+
+
     private void setUpListView() {
-        customerFileListView.getItems().clear();
+        //customerFileListView.getItems().clear();
         customerFileListView.setItems(observableListView);
 
 
     }
 
-    private void setUpComboBox() {
+    private void setUpNumOfPlayersComboBox() {
 
         numOfPlayerComboBox.setItems(numOfPlayersList);
         numOfPlayerComboBox.getSelectionModel().selectFirst();
 
     }
 
-    private void setUpChoiceBox() {
-        highlightSelector.setItems(highlightSelectorFill);
-        highlightSelector.getSelectionModel().selectFirst();
 
-    }
+
 
     public static void main(String[] args) {
         Application.launch(args);
@@ -319,6 +342,8 @@ public class scheduleController extends Application {
         System.out.println("Initialize worked!");
         // Loops through comboBox and adds values 1 to 10
 
+
+
         Appointment.appointmentArrayList.clear();
         observableAppointments.clear();
         observableListView.clear();
@@ -337,8 +362,13 @@ public class scheduleController extends Application {
         loginFadeOut.setToValue(0.0);
         loginFadeOut.setCycleCount(1);
         loginFadeOut.setAutoReverse(false);
-        setUpChoiceBox();
-        setUpComboBox();
+
+        highlightRed.setVisible(false);
+      highlightYellow.setVisible(false);
+      highlightGreen.setVisible(false);
+      highlightButton.setVisible(false);
+
+        setUpNumOfPlayersComboBox();
         setUpObservableList();
         setupProductLineTable();
         csvFunctions.getCsvPaths(csvFunctions.getDirectoryPath());
@@ -365,6 +395,7 @@ public class scheduleController extends Application {
         scheduleTable.setItems(observableAppointments);
     }
 
+
     @Override
     public void start(Stage stage) throws IOException {
 
@@ -374,6 +405,10 @@ public class scheduleController extends Application {
                 (scheduleController.class.getResource("teeTimer.css").toExternalForm());
         stage.setScene(new Scene(root, 640, 400));
         stage.show();
+
+
+
+
 
     }
 }
