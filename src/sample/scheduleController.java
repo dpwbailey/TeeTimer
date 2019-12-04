@@ -24,6 +24,8 @@ import javafx.stage.Stage;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javafx.util.Callback;
 import javafx.util.Duration;
@@ -110,13 +112,10 @@ public class scheduleController extends Application {
 
     public static String selectedFilePath;
 
-    public static boolean isNumeric(String text) {
-      try {
-        Integer.parseInt(text);
-        return true;
-      } catch (NumberFormatException nfe) {
-        return false;
-      }
+    public static boolean isCorrectFormat(String text) {
+        Pattern pattern = Pattern.compile("^[0-9][0-9]:[0-9][0-9]:[0-9][0-9]");
+        Matcher matcher = pattern.matcher(text);
+        return matcher.find();
     }
 
 
@@ -126,7 +125,7 @@ public class scheduleController extends Application {
         String selectedFile = customerFileListView.getSelectionModel().getSelectedItem();
         String testTimeSelection = prefferedTimeTextField.getText();
 
-        if(!(isNumeric(testTimeSelection)) && !(testTimeSelection.equals(""))) {
+        if(!(isCorrectFormat(testTimeSelection)) && !(testTimeSelection.equals(""))) {
           createInvalidTimeValidator(false);
         } else {
           if (!(selectedFile == null) && !(testTimeSelection.equals(""))) {
@@ -162,8 +161,9 @@ public class scheduleController extends Application {
             createFileSentValidator(false);
           }
         }
+}
 
-    }
+
 
 
     @FXML
@@ -343,7 +343,7 @@ public class scheduleController extends Application {
     if (success) {
       validationLabel.setText("Success");
     } else {
-      validationLabel.setText("Enter Time in Format: 1 - 12");
+      validationLabel.setText("Time Format: xx:yy:zz");
     }
     validationLabel.setVisible(true);
     loginFadeOut.playFromStart();

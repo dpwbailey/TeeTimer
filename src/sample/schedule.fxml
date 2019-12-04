@@ -68,13 +68,14 @@
                   <Button fx:id="csvSearchButton" layoutX="224.0" layoutY="84.0" mnemonicParsing="false" onAction="#csvSearch" text="Search" />
                   <Button fx:id="browseButton" layoutX="127.0" layoutY="84.0" mnemonicParsing="false" onAction="#openFileExplorer" text="Browse" />
           </AnchorPane>
-               <Label fx:id="validationLabel" layoutX="473.0" layoutY="280.0" text="Success" />
-          <AnchorPane layoutX="342.0" layoutY="162.0" prefHeight="109.0" prefWidth="264.0" styleClass="glassgreen">
-                  <ComboBox fx:id="numOfPlayerComboBox" layoutX="127.0" layoutY="76.0" prefHeight="25.0" prefWidth="50.0" visibleRowCount="11" />
+               <Label fx:id="validationLabel" layoutX="494.0" layoutY="289.0" text="Success" />
+          <AnchorPane layoutX="342.0" layoutY="162.0" prefHeight="120.0" prefWidth="264.0" styleClass="glassgreen">
+                  <ComboBox fx:id="numOfPlayerComboBox" layoutX="132.0" layoutY="89.0" prefHeight="25.0" prefWidth="50.0" visibleRowCount="11" />
             <Button fx:id="fileToTableViewButton" layoutX="57.0" layoutY="14.0" mnemonicParsing="false" onMouseClicked="#sendFileToTableView" text="Send to Schedule Generator" />
                   <Label layoutY="42.0" prefHeight="27.0" prefWidth="92.0" text="Preferred Time:" />
-                  <Label layoutX="14.0" layoutY="80.0" text="Number of Golfers:" />
+                  <Label layoutX="14.0" layoutY="93.0" text="Number of Golfers:" />
                   <TextField fx:id="prefferedTimeTextField" layoutX="92.0" layoutY="43.0" />
+                  <Label layoutX="92.0" layoutY="69.0" text="Time Format: xx:yy:zz" />
           </AnchorPane>
                <Button fx:id="resetButton" layoutX="238.0" layoutY="297.0" mnemonicParsing="false" onMouseClicked="#resetProgram" text="Reset" />
                <Button fx:id="showCsvFileButton" layoutX="153.0" layoutY="3.0" mnemonicParsing="false" onMouseClicked="#openCsvFile" text="Show FIle" />
