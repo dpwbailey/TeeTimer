@@ -22,7 +22,7 @@ import org.apache.commons.csv.CSVRecord;
 public class csvFunctions {
 
   private static File directoryPath = new File(
-      "C:\\Users\\GodAlan\\OneDrive\\Entrepreneurship\\TeeTimerCurrent");
+      "C:\\Users\\alann\\OneDrive\\Entrepreneurship\\TeeTimerJar");
   private static File activitiesCSV = new File(
       "C:\\Users\\Dan\\Documents\\GitHub\\TeeTimer\\src\\Activities.csv");
   private static String csvPath = "C:\\Users\\dpwba\\IdeaProjects\\TeeTimer\\src\\Activities.csv";
